@@ -20,7 +20,7 @@ job "jalgoarena-traefik" {
       config {
         image = "traefik"
         network_mode = "host"
-        volumes = ["/home/jacek/github/JAlgoArena/nomad/traefik.toml:/etc/traefik/traefik.toml"]
+        volumes = ["/home/jacek/github/JAlgoArena-Nomad/traefik.toml:/etc/traefik/traefik.toml"]
       }
 
       resources {
