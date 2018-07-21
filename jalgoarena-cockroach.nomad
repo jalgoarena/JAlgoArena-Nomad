@@ -1,4 +1,4 @@
-job "jalgoarena-cockroach-master" {
+job "jalgoarena-cockroach" {
   datacenters = ["dc1"]
 
   update {
@@ -6,14 +6,14 @@ job "jalgoarena-cockroach-master" {
     healthy_deadline = "3m"
   }
 
-  group "cockroach-master" {
-    count = 1
+  group "cockroach" {
+    count = 3
 
     ephemeral_disk {
       size = 1000
     }
 
-    task "cockroach-master-node" {
+    task "cockroach-node" {
       driver = "raw_exec"
 
       artifact {
@@ -29,7 +29,8 @@ job "jalgoarena-cockroach-master" {
           "--store=node1",
           "--host", "${NOMAD_IP_tcp}",
           "--port", "${NOMAD_PORT_tcp}",
-          "--http-port", "${NOMAD_PORT_http}"
+          "--http-port", "${NOMAD_PORT_http}",
+          "--join", "${COCKROACH_MASTER_HOST}"
         ]
       }
 
@@ -60,6 +61,16 @@ job "jalgoarena-cockroach-master" {
           interval  = "10s"
           timeout   = "1s"
         }
+      }
+
+      template {
+        data = <<EOH
+COCKROACH_MASTER_HOST = "{{ range $index, $cockroach := service "cockroach" }}{{ if eq $index 0 }}{{ $cockroach.Address }}:{{ $cockroach.Port }}{{ end }}{{ end }}"
+EOH
+
+        destination = "local/config.env"
+        change_mode = "noop"
+        env         = true
       }
     }
   }
