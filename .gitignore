@@ -2,3 +2,4 @@
 jalgoarena-data/
 logs/
 .idea/
+nomad_raw_exec/cockroach-data/
