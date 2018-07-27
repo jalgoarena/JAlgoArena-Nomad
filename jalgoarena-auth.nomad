@@ -9,10 +9,6 @@ job "jalgoarena-auth" {
   group "auth-docker" {
     count = 2
 
-    ephemeral_disk {
-      size = 300
-    }
-
     task "jalgoarena-auth" {
       driver = "docker"
 

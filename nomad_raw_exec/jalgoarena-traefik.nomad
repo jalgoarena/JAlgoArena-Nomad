@@ -10,10 +10,6 @@ job "jalgoarena-traefik" {
 
   group "traefik" {
 
-    ephemeral_disk {
-      size = 300
-    }
-
     task "traefik" {
       driver = "raw_exec"
 

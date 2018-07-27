@@ -9,10 +9,6 @@ job "jalgoarena-auth" {
   group "jalgoarena-auth" {
     count = 1
 
-    ephemeral_disk {
-      size = 300
-    }
-
     task "jalgoarena-auth" {
       driver = "java"
 

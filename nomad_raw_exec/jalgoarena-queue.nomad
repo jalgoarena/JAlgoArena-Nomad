@@ -7,14 +7,18 @@ job "jalgoarena-queue" {
   }
 
   group "queue-docker" {
-    count = 2
+    count = 1
 
     task "jalgoarena-queue" {
-      driver = "docker"
+      driver = "java"
+
+      artifact {
+        source  = "https://github.com/jalgoarena/JAlgoArena-Queue/releases/download/v2.4.2/JAlgoArena-Queue-2.4.47.zip"
+      }
 
       config {
-        image         = "jalgoarena/queue:2.4.47"
-        network_mode = "host"
+        jar_path = "local/jalgoarena-queue-2.4.47.jar"
+        jvm_options = ["-Xmx400m", "-Xms50m"]
       }
 
       resources {
