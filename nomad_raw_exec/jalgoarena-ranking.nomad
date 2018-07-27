@@ -6,15 +6,19 @@ job "jalgoarena-ranking" {
     healthy_deadline = "3m"
   }
 
-  group "ranking-docker" {
-    count = 2
+  group "jalgoarena-ranking" {
+    count = 1
 
     task "jalgoarena-ranking" {
-      driver = "docker"
+      driver = "java"
+
+      artifact {
+        source  = "https://github.com/jalgoarena/JAlgoArena-Ranking/releases/download/v2.4.1/JAlgoArena-Ranking-2.4.59.zip"
+      }
 
       config {
-        image = "jalgoarena/ranking:2.4.59"
-        network_mode = "host"
+        jar_path = "local/jalgoarena-ranking-2.4.59.jar"
+        jvm_options = ["-Xmx400m", "-Xms50m"]
       }
 
       resources {
@@ -27,7 +31,6 @@ job "jalgoarena-ranking" {
 
       env {
         PORT = "${NOMAD_PORT_http}"
-        JAVA_OPTS = "-Xmx400m -Xms50m"
       }
 
       service {
