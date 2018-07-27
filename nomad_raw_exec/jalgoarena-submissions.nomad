@@ -30,7 +30,6 @@ job "jalgoarena-submissions" {
       }
 
       env {
-        KAFKA_CONSUMER_GROUP_ID = "submissions-${NOMAD_ALLOC_INDEX}"
         PORT = "${NOMAD_PORT_http}"
       }
 
