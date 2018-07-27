@@ -6,19 +6,23 @@ job "jalgoarena-auth" {
     healthy_deadline = "3m"
   }
 
-  group "auth-docker" {
-    count = 2
+  group "jalgoarena-auth" {
+    count = 1
 
     ephemeral_disk {
       size = 300
     }
 
     task "jalgoarena-auth" {
-      driver = "docker"
+      driver = "java"
+
+      artifact {
+        source  = "https://github.com/jalgoarena/JAlgoArena-Auth/releases/download/v2.4.5/JAlgoArena-Auth-2.4.152.zip"
+      }
 
       config {
-        image = "jalgoarena/auth:2.4.152"
-        network_mode = "host"
+        jar_path = "local/jalgoarena-auth-2.4.152.jar"
+        jvm_options = ["-Xmx400m", "-Xms50m"]
       }
 
       resources {
@@ -31,7 +35,6 @@ job "jalgoarena-auth" {
 
       env {
         PORT = "${NOMAD_PORT_http}"
-        JAVA_OPTS = "-Xmx400m -Xms50m"
       }
 
       service {

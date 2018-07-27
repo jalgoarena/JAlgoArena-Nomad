@@ -18,7 +18,6 @@ job "jalgoarena-cockroach" {
 
       artifact {
         source  = "https://binaries.cockroachdb.com/cockroach-v2.0.4.linux-amd64.tgz"
-        destination = "local/"
       }
 
       config {
