@@ -9,14 +9,14 @@ job "jalgoarena-ui" {
   group "ui-docker" {
 
     ephemeral_disk {
-      size = 300
+      size = 500
     }
 
     task "jalgoarena-ui" {
       driver = "docker"
 
       config {
-        image = "jalgoarena/ui:2.4.1"
+        image = "jalgoarena/ui:2.4.3"
         network_mode = "host"
       }
 

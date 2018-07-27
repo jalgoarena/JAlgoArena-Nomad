@@ -26,7 +26,7 @@ CREATE TABLE submissions (
 	failed_test_cases INTEGER NULL,
 	passed_test_cases INTEGER NULL,
 	problem_id STRING(255) NOT NULL,
-	source_code STRING(255) NOT NULL,
+	source_code STRING(20000) NOT NULL,
 	status_code STRING(255) NOT NULL,
 	submission_id STRING(255) NOT NULL,
 	submission_time STRING(255) NOT NULL,
