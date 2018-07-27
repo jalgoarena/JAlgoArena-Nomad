@@ -7,18 +7,19 @@ job "jalgoarena-judge" {
   }
 
   group "judge-docker" {
-    count = 2
-
-    ephemeral_disk {
-      size = 300
-    }
+    count = 1
 
     task "jalgoarena-judge" {
-      driver = "docker"
+      driver = "java"
+
+      artifact {
+        source  = "https://github.com/jalgoarena/JAlgoArena-Judge/releases/download/v2.4.1/JAlgoArena-Judge-2.4.483.zip"
+      }
 
       config {
-        image = "jalgoarena/judge:2.4.483"
-        network_mode = "host"
+        jar_path = "local/jalgoarena-judge-2.4.483.jar"
+        class_path  = "${NOMAD_TASK_DIR}"
+        jvm_options = ["-Xmx1g", "-Xms512m"]
       }
 
       resources {
@@ -31,7 +32,6 @@ job "jalgoarena-judge" {
 
       env {
         PORT = "${NOMAD_PORT_http}"
-        JAVA_OPTS = "-Xmx1g -Xms512m"
       }
 
       service {

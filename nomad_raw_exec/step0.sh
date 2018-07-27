@@ -3,7 +3,7 @@ mkdir -p ./jalgoarena-data
 mkdir -p ./logs
 echo "jalgoarena-data & logs dir created"
 
-CONSUL_UI_BETA=true nohup consul agent -server -bootstrap-expect=1 -ui -data-dir=./jalgoarena-data/consul > logs/consul.out 2> logs/consul.err < /dev/null &
+nohup consul agent -server -bootstrap-expect=1 -ui -data-dir=./jalgoarena-data/consul > logs/consul.out 2> logs/consul.err < /dev/null &
 echo "Consul started, check http://localhost:8500"
 consul version
 
