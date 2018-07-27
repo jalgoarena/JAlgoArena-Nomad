@@ -6,15 +6,19 @@ job "jalgoarena-submissions" {
     healthy_deadline = "3m"
   }
 
-  group "submissions-docker" {
-    count = 2
+  group "jalgoarena-submissions" {
+    count = 1
 
     task "jalgoarena-submissions" {
-      driver = "docker"
+      driver = "java"
+
+      artifact {
+        source  = "https://github.com/jalgoarena/JAlgoArena-Submissions/releases/download/v2.4.3/JAlgoArena-Submissions-2.4.187.zip"
+      }
 
       config {
-        image = "jalgoarena/submissions:2.4.187"
-        network_mode = "host"
+        jar_path = "local/jalgoarena-submissions-2.4.187.jar"
+        jvm_options = ["-Xmx400m", "-Xms50m"]
       }
 
       resources {
@@ -28,7 +32,6 @@ job "jalgoarena-submissions" {
       env {
         KAFKA_CONSUMER_GROUP_ID = "submissions-${NOMAD_ALLOC_INDEX}"
         PORT = "${NOMAD_PORT_http}"
-        JAVA_OPTS = "-Xmx400m -Xms50m"
       }
 
       service {
