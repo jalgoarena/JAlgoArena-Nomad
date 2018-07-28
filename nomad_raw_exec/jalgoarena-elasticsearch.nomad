@@ -20,7 +20,7 @@ job "jalgoarena-elasticsearch" {
       }
 
       config {
-        command = "local/bin/elasticsearch"
+        command = "local/elasticsearch-6.3.2/bin/elasticsearch"
       }
 
       resources {

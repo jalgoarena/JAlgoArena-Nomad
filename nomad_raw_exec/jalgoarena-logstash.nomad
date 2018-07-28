@@ -22,7 +22,7 @@ job "jalgoarena-logstash" {
       }
 
       config {
-        command = "local/bin/logstash"
+        command = "local/logstash-6.3.2/bin/logstash"
         args    = [
           "-f",
           "local/logstash.conf"

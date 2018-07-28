@@ -22,7 +22,7 @@ job "jalgoarena-kibana" {
       }
 
       config {
-        command = "local/bin/kibana"
+        command = "local/kibana-6.3.2-darwin-x86_64/bin/kibana"
       }
 
       resources {
