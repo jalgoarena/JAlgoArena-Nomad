@@ -13,11 +13,11 @@ job "jalgoarena-ranking" {
       driver = "java"
 
       artifact {
-        source  = "https://github.com/jalgoarena/JAlgoArena-Ranking/releases/download/v2.4.1/JAlgoArena-Ranking-2.4.59.zip"
+        source  = "https://github.com/jalgoarena/JAlgoArena-Ranking/releases/download/v2.4.3/JAlgoArena-Ranking-2.4.64.zip"
       }
 
       config {
-        jar_path = "local/jalgoarena-ranking-2.4.59.jar"
+        jar_path = "local/jalgoarena-ranking-2.4.64.jar"
         jvm_options = ["-Xmx400m", "-Xms50m"]
       }
 
