@@ -13,7 +13,7 @@ job "jalgoarena-submissions" {
       driver = "docker"
 
       config {
-        image = "jalgoarena/submissions:2.4.191"
+        image = "jalgoarena/submissions:2.4.193"
         network_mode = "host"
       }
 
