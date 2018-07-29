@@ -13,11 +13,11 @@ job "jalgoarena-queue" {
       driver = "java"
 
       artifact {
-        source  = "https://github.com/jalgoarena/JAlgoArena-Queue/releases/download/v2.4.2/JAlgoArena-Queue-2.4.47.zip"
+        source  = "https://github.com/jalgoarena/JAlgoArena-Queue/releases/download/v2.4.3/JAlgoArena-Queue-2.4.51.zip"
       }
 
       config {
-        jar_path = "local/jalgoarena-queue-2.4.47.jar"
+        jar_path = "local/jalgoarena-queue-2.4.51.jar"
         jvm_options = ["-Xmx400m", "-Xms50m"]
       }
 
