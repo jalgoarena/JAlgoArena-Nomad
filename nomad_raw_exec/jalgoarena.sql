@@ -29,7 +29,7 @@ CREATE TABLE submissions (
 	source_code STRING(20000) NOT NULL,
 	status_code STRING(255) NOT NULL,
 	submission_id STRING(255) NOT NULL,
-	submission_time STRING(255) NOT NULL,
+	submission_time TIMESTAMP NOT NULL,
 	token STRING(255) NULL,
 	user_id STRING(255) NOT NULL,
 	CONSTRAINT "primary" PRIMARY KEY (id ASC),
