@@ -6,20 +6,22 @@ job "jalgoarena-judge" {
     healthy_deadline = "3m"
   }
 
-  group "judge-docker" {
-    count = 1
+  group "jalgoarena-judge" {
+    count = 2
 
     task "jalgoarena-judge" {
-      driver = "java"
+      driver = "raw_exec"
 
       artifact {
         source  = "https://github.com/jalgoarena/JAlgoArena-Judge/releases/download/v2.4.7/JAlgoArena-Judge-2.4.496.zip"
       }
 
       config {
-        jar_path = "local/jalgoarena-judge-2.4.496.jar"
-        class_path  = "${NOMAD_TASK_DIR}"
-        jvm_options = ["-Xmx1g", "-Xms512m"]
+        command = "java"
+        args = [
+          "-Xmx1g", "-Xms512m",
+          "-jar", "local/jalgoarena-judge-2.4.496.jar"
+        ]
       }
 
       resources {
