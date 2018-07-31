@@ -17,11 +17,11 @@ job "jalgoarena-cockroach" {
       driver = "raw_exec"
 
       artifact {
-        source  = "https://binaries.cockroachdb.com/cockroach-v2.0.4.linux-amd64.tgz"
+        source  = "https://binaries.cockroachdb.com/cockroach-v2.0.4.${attr.kernel.name}-${attr.cpu.arch}.tgz"
       }
 
       config {
-        command = "local/cockroach-v2.0.4.linux-amd64/cockroach"
+        command = "local/cockroach-v2.0.4.${attr.kernel.name}-${attr.cpu.arch}/cockroach"
         args    = [
           "start",
           "--insecure",
