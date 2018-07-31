@@ -14,11 +14,11 @@ job "jalgoarena-traefik" {
       driver = "raw_exec"
 
       artifact {
-        source  = "https://github.com/containous/traefik/releases/download/v1.6.5/traefik_darwin-amd64"
+        source  = "https://github.com/containous/traefik/releases/download/v1.6.5/traefik_${attr.kernel.name}-${attr.cpu.arch}"
       }
 
       config {
-        command = "local/traefik_darwin-amd64"
+        command = "local/traefik_${attr.kernel.name}-${attr.cpu.arch}"
         args    = [
           "-c", "local/traefik.toml"
         ]
