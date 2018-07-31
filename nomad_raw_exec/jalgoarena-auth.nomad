@@ -10,15 +10,18 @@ job "jalgoarena-auth" {
     count = 1
 
     task "jalgoarena-auth" {
-      driver = "java"
+      driver = "raw_exec"
 
       artifact {
-        source  = "https://github.com/jalgoarena/JAlgoArena-Auth/releases/download/v2.4.5/JAlgoArena-Auth-2.4.152.zip"
+        source  = "https://github.com/jalgoarena/JAlgoArena-Auth/releases/download/v2.4.6/JAlgoArena-Auth-2.4.154.zip"
       }
 
       config {
-        jar_path = "local/jalgoarena-auth-2.4.152.jar"
-        jvm_options = ["-Xmx400m", "-Xms50m"]
+        command = "java"
+        args = [
+          "-Xmx400m", "-Xms50m",
+          "-jar", "local/jalgoarena-auth-2.4.154.jar"
+        ]
       }
 
       resources {
@@ -43,6 +46,18 @@ job "jalgoarena-auth" {
           interval      = "10s"
           timeout       = "1s"
         }
+      }
+
+      template {
+        data = <<EOH
+{{ range $index, $cockroach := service "cockroach" }}{{ if eq $index 0 }}
+DB_HOST = "{{ $cockroach.Address }}"
+DB_PORT = "{{ $cockroach.Port }}"
+{{ end }}{{ end }}
+EOH
+
+        destination = "local/config.env"
+        env         = true
       }
     }
   }
