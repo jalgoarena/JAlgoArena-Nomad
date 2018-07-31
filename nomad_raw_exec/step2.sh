@@ -5,4 +5,4 @@ nomad job run jalgoarena-events.nomad
 nomad job run jalgoarena-judge.nomad
 nomad job run jalgoarena-submissions.nomad
 nomad job run jalgoarena-ranking.nomad
-#nomad job run jalgoarena-ui.nomad
+nomad job run jalgoarena-ui.nomad
