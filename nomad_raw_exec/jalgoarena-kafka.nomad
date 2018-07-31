@@ -7,7 +7,7 @@ job "jalgoarena-kafka" {
     healthy_deadline = "3m"
   }
 
-  group "zk-docker" {
+  group "jalgoarena-zk" {
 
     ephemeral_disk {
       size = 1000
@@ -66,8 +66,8 @@ EOH
     }
   }
 
-  group "kafka-docker" {
-    count = 1
+  group "jalgoarena-kafka" {
+    count = 3
 
     ephemeral_disk {
       size = 1000
