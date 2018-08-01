@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS jalgoarena.submissions (
 	id INTEGER NOT NULL,
 	consumed_memory BIGINT NOT NULL,
 	elapsed_time DOUBLE PRECISION NOT NULL,
-	error_message STRING(255) NULL,
+	error_message STRING(20000) NULL,
 	failed_test_cases INTEGER NULL,
 	passed_test_cases INTEGER NULL,
 	problem_id STRING(255) NOT NULL,
