@@ -8,7 +8,7 @@ job "jalgoarena-logstash" {
     healthy_deadline = "3m"
   }
 
-  group "logstash-docker" {
+  group "jalgoarena-logstash" {
 
     ephemeral_disk {
       size = 1000

@@ -13,7 +13,7 @@ job "jalgoarena-auth" {
       driver = "docker"
 
       config {
-        image = "jalgoarena/auth:2.4.152"
+        image = "jalgoarena/auth:2.4.154"
         network_mode = "host"
       }
 
@@ -40,6 +40,18 @@ job "jalgoarena-auth" {
           interval      = "10s"
           timeout       = "1s"
         }
+      }
+
+      template {
+        data = <<EOH
+{{ range $index, $cockroach := service "cockroach" }}{{ if eq $index 0 }}
+DB_HOST = "{{ $cockroach.Address }}"
+DB_PORT = "{{ $cockroach.Port }}"
+{{ end }}{{ end }}
+EOH
+
+        destination = "local/config.env"
+        env         = true
       }
     }
   }

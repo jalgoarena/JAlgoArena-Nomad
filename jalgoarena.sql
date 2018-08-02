@@ -2,7 +2,7 @@ CREATE DATABASE IF NOT EXISTS jalgoarena;
 CREATE USER IF NOT EXISTS jalgo;
 GRANT ALL ON DATABASE jalgoarena TO jalgo;
 
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS jalgoarena.users (
 	id INTEGER NOT NULL,
 	email STRING(255) NOT NULL,
 	firstname STRING(255) NOT NULL,
@@ -18,11 +18,11 @@ CREATE TABLE users (
 	FAMILY "primary" (id, email, firstname, password, region, role, surname, team, username)
 );
 
-CREATE TABLE submissions (
+CREATE TABLE IF NOT EXISTS jalgoarena.submissions (
 	id INTEGER NOT NULL,
 	consumed_memory BIGINT NOT NULL,
 	elapsed_time DOUBLE PRECISION NOT NULL,
-	error_message STRING(255) NULL,
+	error_message STRING(20000) NULL,
 	failed_test_cases INTEGER NULL,
 	passed_test_cases INTEGER NULL,
 	problem_id STRING(255) NOT NULL,

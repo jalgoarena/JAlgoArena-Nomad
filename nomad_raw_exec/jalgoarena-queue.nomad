@@ -6,19 +6,22 @@ job "jalgoarena-queue" {
     healthy_deadline = "3m"
   }
 
-  group "queue-docker" {
-    count = 1
+  group "jalgoarena-queue" {
+    count = 2
 
     task "jalgoarena-queue" {
-      driver = "java"
+      driver = "raw_exec"
 
       artifact {
         source  = "https://github.com/jalgoarena/JAlgoArena-Queue/releases/download/v2.4.3/JAlgoArena-Queue-2.4.51.zip"
       }
 
       config {
-        jar_path = "local/jalgoarena-queue-2.4.51.jar"
-        jvm_options = ["-Xmx400m", "-Xms50m"]
+        command = "java"
+        args = [
+          "-Xmx400m", "-Xms50m",
+          "-jar", "local/jalgoarena-queue-2.4.51.jar"
+        ]
       }
 
       resources {

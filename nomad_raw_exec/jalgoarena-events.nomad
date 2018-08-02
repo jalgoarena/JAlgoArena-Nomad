@@ -7,18 +7,21 @@ job "jalgoarena-events" {
   }
 
   group "jalgoarena-events" {
-    count = 1
+    count = 2
 
     task "jalgoarena-events" {
-      driver = "java"
+      driver = "raw_exec"
 
       artifact {
         source  = "https://github.com/jalgoarena/JAlgoArena-Events/releases/download/v2.4.1/JAlgoArena-Events-2.4.34.zip"
       }
 
       config {
-        jar_path = "local/jalgoarena-events-2.4.34.jar"
-        jvm_options = ["-Xmx400m", "-Xms50m"]
+        command = "java"
+        args = [
+          "-Xmx400m", "-Xms50m",
+          "-jar", "local/jalgoarena-events-2.4.34.jar"
+        ]
       }
 
       resources {

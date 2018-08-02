@@ -3,12 +3,17 @@ job "jalgoarena-kibana" {
 
   type = "system"
 
+  constraint {
+    attribute = "${attr.kernel.name}"
+    value     = "linux"
+  }
+
   update {
     max_parallel = 1
     healthy_deadline = "3m"
   }
 
-  group "kibana-docker" {
+  group "jalgoarena-kibana" {
 
     ephemeral_disk {
       size = 1000
@@ -18,11 +23,11 @@ job "jalgoarena-kibana" {
       driver = "raw_exec"
 
       artifact {
-        source  = "https://artifacts.elastic.co/downloads/kibana/kibana-6.3.2-darwin-x86_64.tar.gz"
+        source  = "https://artifacts.elastic.co/downloads/kibana/kibana-6.3.2-linux-x86_64.tar.gz"
       }
 
       config {
-        command = "local/kibana-6.3.2-darwin-x86_64/bin/kibana"
+        command = "local/kibana-6.3.2-linux-x86_64/bin/kibana"
       }
 
       resources {

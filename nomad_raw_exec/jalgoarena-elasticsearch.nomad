@@ -1,12 +1,13 @@
 job "jalgoarena-elasticsearch" {
-  datacenters = ["dc1"]
+  datacenters = [
+    "dc1"]
 
   update {
     max_parallel = 1
     healthy_deadline = "3m"
   }
 
-  group "elasticsearch-docker" {
+  group "jalgoarena-elasticsearch" {
 
     ephemeral_disk {
       size = 2000
@@ -16,7 +17,7 @@ job "jalgoarena-elasticsearch" {
       driver = "raw_exec"
 
       artifact {
-        source  = "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.3.2.tar.gz"
+        source = "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.3.2.tar.gz"
       }
 
       config {
@@ -24,7 +25,7 @@ job "jalgoarena-elasticsearch" {
       }
 
       resources {
-        cpu    = 1000
+        cpu = 1000
         memory = 3000
         network {
           port "http" {
@@ -35,13 +36,23 @@ job "jalgoarena-elasticsearch" {
 
       service {
         name = "elasticsearch"
-        tags = ["elk", "traefik.enable=false"]
+        tags = [
+          "elk",
+          "traefik.enable=false"]
         port = "http"
         check {
-          type      = "tcp"
-          interval  = "10s"
-          timeout   = "1s"
+          type = "tcp"
+          interval = "10s"
+          timeout = "1s"
         }
+      }
+
+      template {
+        data = <<EOH
+network.host: {{ env "NOMAD_IP_http" }}
+EOH
+
+        destination = "local/elasticsearch-6.3.2/config/elasticsearch.yml"
       }
     }
   }
