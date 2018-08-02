@@ -34,9 +34,7 @@ job "jalgoarena-kibana" {
         cpu    = 500
         memory = 500
         network {
-          port "kibana" {
-            static = 5601
-          }
+          port "kibana" {}
         }
       }
 
@@ -53,11 +51,12 @@ job "jalgoarena-kibana" {
 
       template {
         data = <<EOH
-ELASTICSEARCH_URL = "http://{{ range $index, $elasticsearch := service "elasticsearch" }}{{ if eq $index 0 }}{{ $elasticsearch.Address }}:{{ $elasticsearch.Port }}{{ end }}{{ end }}"
+server.host: {{ env "NOMAD_IP_kibana" }}
+server.port: {{ env "NOMAD_PORT_kibana" }}
+elasticsearch.url: "http://{{ range $index, $elasticsearch := service "elasticsearch" }}{{ if eq $index 0 }}{{ $elasticsearch.Address }}:{{ $elasticsearch.Port }}{{ end }}{{ end }}"
 EOH
 
-        destination = "local/config.env"
-        env         = true
+        destination = "local/kibana-6.3.2-linux-x86_64/config/kibana.yml"
       }
     }
   }
