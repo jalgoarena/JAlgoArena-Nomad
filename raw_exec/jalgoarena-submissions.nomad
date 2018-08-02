@@ -13,14 +13,14 @@ job "jalgoarena-submissions" {
       driver = "raw_exec"
 
       artifact {
-        source  = "https://github.com/jalgoarena/JAlgoArena-Submissions/releases/download/v2.4.10/JAlgoArena-Submissions-2.4.201.zip"
+        source  = "https://github.com/jalgoarena/JAlgoArena-Submissions/releases/download/v2.4.11/JAlgoArena-Submissions-2.4.204.zip"
       }
 
       config {
         command = "java"
         args = [
           "-Xmx400m", "-Xms50m",
-          "-jar", "local/jalgoarena-submissions-2.4.201.jar"
+          "-jar", "local/jalgoarena-submissions-2.4.204.jar"
         ]
       }
 
