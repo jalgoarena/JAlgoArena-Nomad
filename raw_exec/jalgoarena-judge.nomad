@@ -13,14 +13,14 @@ job "jalgoarena-judge" {
       driver = "raw_exec"
 
       artifact {
-        source  = "https://github.com/jalgoarena/JAlgoArena-Judge/releases/download/v2.4.7/JAlgoArena-Judge-2.4.496.zip"
+        source  = "https://github.com/jalgoarena/JAlgoArena-Judge/releases/download/v2.4.8/JAlgoArena-Judge-2.4.498.zip"
       }
 
       config {
         command = "java"
         args = [
           "-Xmx1g", "-Xms512m",
-          "-jar", "local/jalgoarena-judge-2.4.496.jar"
+          "-jar", "local/jalgoarena-judge-2.4.498.jar"
         ]
       }
 

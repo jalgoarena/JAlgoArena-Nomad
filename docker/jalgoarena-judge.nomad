@@ -17,7 +17,7 @@ job "jalgoarena-judge" {
       driver = "docker"
 
       config {
-        image = "jalgoarena/judge:2.4.496"
+        image = "jalgoarena/judge:2.4.498"
         network_mode = "host"
       }
 
