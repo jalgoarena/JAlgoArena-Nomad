@@ -13,7 +13,7 @@ job "jalgoarena-submissions" {
       driver = "docker"
 
       config {
-        image = "jalgoarena/submissions:2.4.213"
+        image = "jalgoarena/submissions:2.4.217"
         network_mode = "host"
       }
 
@@ -46,10 +46,7 @@ job "jalgoarena-submissions" {
         data = <<EOH
 BOOTSTRAP_SERVERS = "{{ range $index, $kafka := service "kafka" }}{{ if eq $index 0 }}{{ $kafka.Address }}:{{ $kafka.Port }}{{ else}},{{ $kafka.Address }}:{{ $kafka.Port }}{{ end }}{{ end }}"
 JALGOARENA_API_URL = "http://{{ range $index, $traefik := service "traefik" }}{{ if eq $index 0 }}{{ $traefik.Address }}:{{ $traefik.Port }}{{ end }}{{ end }}"
-{{ range $index, $cockroach := service "cockroach" }}{{ if eq $index 0 }}
-DB_HOST = "{{ $cockroach.Address }}"
-DB_PORT = "{{ $cockroach.Port }}"
-{{ end }}{{ end }}
+DB_HOST= "{{ range $index, $cockroach := service "cockroach" }}{{ if eq $index 0 }}{{ $cockroach.Address }}:{{ $cockroach.Port }}{{ end }}{{ end }}"
 EOH
 
         destination = "local/config.env"

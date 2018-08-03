@@ -13,14 +13,14 @@ job "jalgoarena-ranking" {
       driver = "raw_exec"
 
       artifact {
-        source  = "https://github.com/jalgoarena/JAlgoArena-Ranking/releases/download/v2.4.4/JAlgoArena-Ranking-2.4.67.zip"
+        source  = "https://github.com/jalgoarena/JAlgoArena-Ranking/releases/download/20180803120309-1bebcb5/JAlgoArena-Ranking-2.4.72.zip"
       }
 
       config {
         command = "java"
         args = [
           "-Xmx400m", "-Xms50m",
-          "-jar", "local/jalgoarena-ranking-2.4.67.jar"
+          "-jar", "local/jalgoarena-ranking-2.4.72.jar"
         ]
       }
 
@@ -51,10 +51,7 @@ job "jalgoarena-ranking" {
       template {
         data = <<EOH
 JALGOARENA_API_URL = "http://{{ range $index, $traefik := service "traefik" }}{{ if eq $index 0 }}{{ $traefik.Address }}:{{ $traefik.Port }}{{ end }}{{ end }}"
-{{ range $index, $cockroach := service "cockroach" }}{{ if eq $index 0 }}
-DB_HOST = "{{ $cockroach.Address }}"
-DB_PORT = "{{ $cockroach.Port }}"
-{{ end }}{{ end }}
+DB_HOST= "{{ range $index, $cockroach := service "cockroach" }}{{ if eq $index 0 }}{{ $cockroach.Address }}:{{ $cockroach.Port }}{{ end }}{{ end }}"
 EOH
 
         destination = "local/config.env"

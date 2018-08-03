@@ -7,20 +7,20 @@ job "jalgoarena-auth" {
   }
 
   group "jalgoarena-auth" {
-    count = 1
+    count = 2
 
     task "jalgoarena-auth" {
       driver = "raw_exec"
 
       artifact {
-        source  = "https://github.com/jalgoarena/JAlgoArena-Auth/releases/download/v2.4.6/JAlgoArena-Auth-2.4.154.zip"
+        source  = "https://github.com/jalgoarena/JAlgoArena-Auth/releases/download/20180803120329-026c05e/JAlgoArena-Auth-2.4.157.zip"
       }
 
       config {
         command = "java"
         args = [
           "-Xmx400m", "-Xms50m",
-          "-jar", "local/jalgoarena-auth-2.4.154.jar"
+          "-jar", "local/jalgoarena-auth-2.4.157.jar"
         ]
       }
 
@@ -50,10 +50,7 @@ job "jalgoarena-auth" {
 
       template {
         data = <<EOH
-{{ range $index, $cockroach := service "cockroach" }}{{ if eq $index 0 }}
-DB_HOST = "{{ $cockroach.Address }}"
-DB_PORT = "{{ $cockroach.Port }}"
-{{ end }}{{ end }}
+DB_HOST = "{{ range $index, $cockroach := service "cockroach" }}{{ if eq $index 0 }}{{ $cockroach.Address }}:{{ $cockroach.Port }}{{ end }}{{ end }}"
 EOH
 
         destination = "local/config.env"

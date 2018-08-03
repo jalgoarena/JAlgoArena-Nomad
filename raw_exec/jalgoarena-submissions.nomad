@@ -13,14 +13,14 @@ job "jalgoarena-submissions" {
       driver = "raw_exec"
 
       artifact {
-        source  = "https://github.com/jalgoarena/JAlgoArena-Submissions/releases/download/20180803105341-9837e0b/JAlgoArena-Submissions-2.4.213.zip"
+        source  = "https://github.com/jalgoarena/JAlgoArena-Submissions/releases/download/20180803120450-a5140d8/JAlgoArena-Submissions-2.4.217.zip"
       }
 
       config {
         command = "java"
         args = [
           "-Xmx400m", "-Xms50m",
-          "-jar", "local/jalgoarena-submissions-2.4.213.jar"
+          "-jar", "local/jalgoarena-submissions-2.4.217.jar"
         ]
       }
 
@@ -52,10 +52,7 @@ job "jalgoarena-submissions" {
         data = <<EOH
 BOOTSTRAP_SERVERS = "{{ range $index, $kafka := service "kafka" }}{{ if eq $index 0 }}{{ $kafka.Address }}:{{ $kafka.Port }}{{ else}},{{ $kafka.Address }}:{{ $kafka.Port }}{{ end }}{{ end }}"
 JALGOARENA_API_URL = "http://{{ range $index, $traefik := service "traefik" }}{{ if eq $index 0 }}{{ $traefik.Address }}:{{ $traefik.Port }}{{ end }}{{ end }}"
-{{ range $index, $cockroach := service "cockroach" }}{{ if eq $index 0 }}
-DB_HOST = "{{ $cockroach.Address }}"
-DB_PORT = "{{ $cockroach.Port }}"
-{{ end }}{{ end }}
+DB_HOST = "{{ range $index, $cockroach := service "cockroach" }}{{ if eq $index 0 }}{{ $cockroach.Address }}:{{ $cockroach.Port }}{{ end }}{{ end }}"
 EOH
 
         destination = "local/config.env"
