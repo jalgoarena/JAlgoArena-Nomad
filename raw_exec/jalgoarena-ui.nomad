@@ -17,7 +17,7 @@ job "jalgoarena-ui" {
       driver = "raw_exec"
 
       artifact {
-        source  = "https://github.com/jalgoarena/JAlgoArena-UI/releases/download/20180804052906-614f1c8/JAlgoArena-UI-2.4.530.zip"
+        source  = "https://github.com/jalgoarena/JAlgoArena-UI/releases/download/20180804183850-1b31181/JAlgoArena-UI-2.4.537.zip"
       }
 
       config {
@@ -31,9 +31,7 @@ job "jalgoarena-ui" {
         cpu    = 750
         memory = 750
         network {
-          port "http" {
-            static = 3000
-          }
+          port "http" {}
         }
       }
 
@@ -46,6 +44,10 @@ job "jalgoarena-ui" {
           interval  = "10s"
           timeout   = "1s"
         }
+      }
+
+      env {
+        PORT = "${NOMAD_PORT_http}"
       }
 
       template {
