@@ -7,7 +7,7 @@ job "jalgoarena-ui" {
   }
 
   group "jalgoarena-ui" {
-    count = 1
+    count = 2
 
     ephemeral_disk {
       size = 500
@@ -17,7 +17,7 @@ job "jalgoarena-ui" {
       driver = "raw_exec"
 
       artifact {
-        source  = "https://github.com/jalgoarena/JAlgoArena-UI/releases/download/20180804183850-1b31181/JAlgoArena-UI-2.4.537.zip"
+        source  = "https://github.com/jalgoarena/JAlgoArena-UI/releases/download/20180804203121-b6b1563/JAlgoArena-UI-2.4.542.zip"
       }
 
       config {
