@@ -13,7 +13,7 @@ job "jalgoarena-ranking" {
       driver = "docker"
 
       config {
-        image = "jalgoarena/ranking:2.4.74"
+        image = "jalgoarena/ranking:2.4.76"
         network_mode = "host"
       }
 
