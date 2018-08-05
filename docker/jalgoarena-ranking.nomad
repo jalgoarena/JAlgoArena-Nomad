@@ -27,6 +27,7 @@ job "jalgoarena-ranking" {
 
       env {
         PORT = "${NOMAD_PORT_http}"
+        KAFKA_CONSUMER_GROUP_ID = "ranking-${NOMAD_ALLOC_INDEX}"
         JAVA_OPTS = "-Xmx400m -Xms50m"
       }
 
