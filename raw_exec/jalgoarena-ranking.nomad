@@ -13,14 +13,14 @@ job "jalgoarena-ranking" {
       driver = "raw_exec"
 
       artifact {
-        source  = "https://github.com/jalgoarena/JAlgoArena-Ranking/releases/download/20180805091052-4087a1f/JAlgoArena-Ranking-2.4.78.zip"
+        source  = "https://github.com/jalgoarena/JAlgoArena-Ranking/releases/download/20180805104556-d40f0fe/JAlgoArena-Ranking-2.4.80.zip"
       }
 
       config {
         command = "java"
         args = [
           "-Xmx400m", "-Xms50m",
-          "-jar", "local/jalgoarena-ranking-2.4.78.jar"
+          "-jar", "local/jalgoarena-ranking-2.4.80.jar"
         ]
       }
 
@@ -50,6 +50,7 @@ job "jalgoarena-ranking" {
 
       template {
         data = <<EOH
+BOOTSTRAP_SERVERS = "{{ range $index, $kafka := service "kafka" }}{{ if eq $index 0 }}{{ $kafka.Address }}:{{ $kafka.Port }}{{ else}},{{ $kafka.Address }}:{{ $kafka.Port }}{{ end }}{{ end }}"
 JALGOARENA_API_URL = "http://{{ range $index, $traefik := service "traefik" }}{{ if eq $index 0 }}{{ $traefik.Address }}:{{ $traefik.Port }}{{ end }}{{ end }}"
 EOH
 
