@@ -28,6 +28,11 @@ job "jalgoarena-kibana" {
 
       config {
         command = "local/kibana-6.3.2-linux-x86_64/bin/kibana"
+        args = [
+          "--elasticsearch", "${ELASTICSEARCH_URL}",
+          "--host", "${NOMAD_IP_kibana}",
+          "--port", "${NOMAD_PORT_kibana}",
+        ]
       }
 
       resources {
@@ -51,12 +56,11 @@ job "jalgoarena-kibana" {
 
       template {
         data = <<EOH
-server.host: {{ env "NOMAD_IP_kibana" }}
-server.port: {{ env "NOMAD_PORT_kibana" }}
-elasticsearch.url: "http://{{ range $index, $elasticsearch := service "elasticsearch" }}{{ if eq $index 0 }}{{ $elasticsearch.Address }}:{{ $elasticsearch.Port }}{{ end }}{{ end }}"
+ELASTICSEARCH_URL = "http://{{ range $index, $elasticsearch := service "elasticsearch" }}{{ if eq $index 0 }}{{ $elasticsearch.Address }}:{{ $elasticsearch.Port }}{{ end }}{{ end }}"
 EOH
 
-        destination = "local/kibana-6.3.2-linux-x86_64/config/kibana.yml"
+        destination = "local/config.env"
+        env         = true
       }
     }
   }
