@@ -23,9 +23,8 @@ job "jalgoarena-elasticsearch" {
       config {
         command = "local/elasticsearch-6.3.2/bin/elasticsearch"
         args = [
-          "-E",
-          "http.host=${NOMAD_IP_http}",
-          "http.port=${NOMAD_PORT_http}"
+          "-E", "http.host=${NOMAD_IP_http}",
+          "-E", "http.port=${NOMAD_PORT_http}"
         ]
       }
 
