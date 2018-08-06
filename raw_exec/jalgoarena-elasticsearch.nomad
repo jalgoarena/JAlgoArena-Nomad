@@ -22,15 +22,18 @@ job "jalgoarena-elasticsearch" {
 
       config {
         command = "local/elasticsearch-6.3.2/bin/elasticsearch"
+        args = [
+          "-E",
+          "http.host=${NOMAD_IP_http}",
+          "http.port=${NOMAD_PORT_http}"
+        ]
       }
 
       resources {
         cpu = 1000
         memory = 3000
         network {
-          port "http" {
-            static = 9200
-          }
+          port "http" {}
         }
       }
 
@@ -45,14 +48,6 @@ job "jalgoarena-elasticsearch" {
           interval = "10s"
           timeout = "1s"
         }
-      }
-
-      template {
-        data = <<EOH
-network.host: {{ env "NOMAD_IP_http" }}
-EOH
-
-        destination = "local/elasticsearch-6.3.2/config/elasticsearch.yml"
       }
     }
   }
