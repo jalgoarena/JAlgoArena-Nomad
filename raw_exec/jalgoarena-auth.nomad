@@ -13,14 +13,14 @@ job "jalgoarena-auth" {
       driver = "raw_exec"
 
       artifact {
-        source  = "https://github.com/jalgoarena/JAlgoArena-Auth/releases/download/20180803120329-026c05e/JAlgoArena-Auth-2.4.157.zip"
+        source  = "https://github.com/jalgoarena/JAlgoArena-Auth/releases/download/20180807165350-c9601e7/JAlgoArena-Auth-2.4.161.zip"
       }
 
       config {
         command = "java"
         args = [
           "-Xmx400m", "-Xms50m",
-          "-jar", "local/jalgoarena-auth-2.4.157.jar"
+          "-jar", "local/jalgoarena-auth-2.4.161.jar"
         ]
       }
 
