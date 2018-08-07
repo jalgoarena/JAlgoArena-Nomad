@@ -17,7 +17,7 @@ job "jalgoarena-ui" {
       driver = "raw_exec"
 
       artifact {
-        source  = "https://github.com/jalgoarena/JAlgoArena-UI/releases/download/20180805150831-4c9c86b/JAlgoArena-UI-2.4.547.zip"
+        source  = "https://github.com/jalgoarena/JAlgoArena-UI/releases/download/20180807172240-a55f656/JAlgoArena-UI-2.4.552.zip"
       }
 
       config {
@@ -54,6 +54,7 @@ job "jalgoarena-ui" {
         data = <<EOH
 JALGOARENA_API_HTTP_URL = "http://{{ range $index, $traefik := service "traefik" }}{{ if eq $index 0 }}{{ $traefik.Address }}:5001{{ end }}{{ end }}"
 JALGOARENA_API_WS_URL = "http://{{ range $index, $traefik := service "traefik" }}{{ if eq $index 0 }}{{ $traefik.Address }}:5005{{ end }}{{ end }}"
+CONSUL_URL = http://{{ env "NOMAD_IP_http"}}:8500
 EOH
 
         destination = "local/config.env"
