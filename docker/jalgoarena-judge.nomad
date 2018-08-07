@@ -17,7 +17,7 @@ job "jalgoarena-judge" {
       driver = "docker"
 
       config {
-        image = "jalgoarena/judge:2.4.498"
+        image = "jalgoarena/judge:2.4.504"
         network_mode = "host"
       }
 
@@ -32,6 +32,7 @@ job "jalgoarena-judge" {
       env {
         PORT = "${NOMAD_PORT_http}"
         JAVA_OPTS = "-Xmx1g -Xms512m"
+        JUDGE_CLASSPATH = "/app/build/classes/kotlin/main"
       }
 
       service {

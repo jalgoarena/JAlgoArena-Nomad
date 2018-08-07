@@ -13,14 +13,14 @@ job "jalgoarena-judge" {
       driver = "raw_exec"
 
       artifact {
-        source  = "https://github.com/jalgoarena/JAlgoArena-Judge/releases/download/v2.4.8/JAlgoArena-Judge-2.4.498.zip"
+        source  = "https://github.com/jalgoarena/JAlgoArena-Judge/releases/download/20180807170218-9bde7fa/JAlgoArena-Judge-2.4.504.zip"
       }
 
       config {
         command = "java"
         args = [
           "-Xmx1g", "-Xms512m",
-          "-jar", "local/jalgoarena-judge-2.4.498.jar"
+          "-jar", "local/jalgoarena-judge-2.4.504.jar"
         ]
       }
 
@@ -34,6 +34,7 @@ job "jalgoarena-judge" {
 
       env {
         PORT = "${NOMAD_PORT_http}"
+        JUDGE_CLASSPATH = "local/build/classes/kotlin/main"
       }
 
       service {
