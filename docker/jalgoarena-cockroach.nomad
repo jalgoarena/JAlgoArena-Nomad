@@ -7,7 +7,7 @@ job "jalgoarena-cockroach" {
   }
 
   group "cockroach" {
-    count = 3
+    count = 2
 
     ephemeral_disk {
       migrate = true
@@ -32,13 +32,13 @@ job "jalgoarena-cockroach" {
           "--host", "${NOMAD_IP_tcp}",
           "--port", "${NOMAD_PORT_tcp}",
           "--http-port", "${NOMAD_PORT_http}",
-          "--join", "${COCKROACH_MASTER_HOST}"
+          "--join", "${COCKROACH_JOIN}"
         ]
       }
 
       resources {
         cpu    = 500
-        memory = 750
+        memory = 1000
         network {
           port "http" {}
           port "tcp" {}
@@ -67,11 +67,10 @@ job "jalgoarena-cockroach" {
 
       template {
         data = <<EOH
-COCKROACH_JOIN = {{ range $index, $cockroach := service "cockroach" }}{{ if eq $index 0 }}{{ $cockroach.Address }}:{{ $cockroach.Port }}{{ else}},{{ $cockroach.Address }}:{{ $cockroach.Port }}{{ end }}{{ end }}
+COCKROACH_JOIN = {{ range $index, $cockroach := service "master.cockroach" }}{{ if eq $index 0 }}{{ $cockroach.Address }}:{{ $cockroach.Port }}{{ else}},{{ $cockroach.Address }}:{{ $cockroach.Port }}{{ end }}{{ end }}
 EOH
 
         destination = "local/config.env"
-        change_mode = "noop"
         env         = true
       }
     }

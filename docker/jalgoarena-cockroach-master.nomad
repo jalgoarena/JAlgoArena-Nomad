@@ -1,14 +1,13 @@
-job "jalgoarena-cockroach" {
+job "jalgoarena-cockroach-master" {
   datacenters = ["dc1"]
 
   update {
     max_parallel = 1
     healthy_deadline = "3m"
+    canary = 1
   }
 
   group "cockroach" {
-    count = 2
-
     ephemeral_disk {
       migrate = true
       size = 1500
@@ -17,22 +16,21 @@ job "jalgoarena-cockroach" {
 
     task "cockroach-node" {
       driver = "raw_exec"
-      leader = true
 
       artifact {
-        source  = "https://binaries.cockroachdb.com/cockroach-v2.0.4.${attr.kernel.name}-${attr.cpu.arch}.tgz"
+        source  = "https://binaries.cockroachdb.com/cockroach-v2.0.4.linux-amd64.tgz"
+        destination = "local/"
       }
 
       config {
-        command = "local/cockroach-v2.0.4.${attr.kernel.name}-${attr.cpu.arch}/cockroach"
+        command = "local/cockroach-v2.0.4.linux-amd64/cockroach"
         args    = [
           "start",
           "--insecure",
           "--store", "node-${NOMAD_ALLOC_INDEX}",
           "--host", "${NOMAD_IP_tcp}",
           "--port", "${NOMAD_PORT_tcp}",
-          "--http-port", "${NOMAD_PORT_http}",
-          "--join", "${COCKROACH_JOIN}"
+          "--http-port", "${NOMAD_PORT_http}"
         ]
       }
 
@@ -47,7 +45,7 @@ job "jalgoarena-cockroach" {
 
       service {
         name = "cockroach"
-        tags = ["traefik.enable=false"]
+        tags = ["traefik.enable=false", "master"]
         port = "tcp"
         check {
           name      = "service: cockroach http check"
@@ -63,15 +61,6 @@ job "jalgoarena-cockroach" {
           interval  = "10s"
           timeout   = "1s"
         }
-      }
-
-      template {
-        data = <<EOH
-COCKROACH_JOIN = {{ range $index, $cockroach := service "master.cockroach" }}{{ if eq $index 0 }}{{ $cockroach.Address }}:{{ $cockroach.Port }}{{ else}},{{ $cockroach.Address }}:{{ $cockroach.Port }}{{ end }}{{ end }}
-EOH
-
-        destination = "local/config.env"
-        env         = true
       }
     }
   }
