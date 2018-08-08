@@ -35,7 +35,7 @@ job "jalgoarena-cockroach" {
 
       resources {
         cpu    = 500
-        memory = 500
+        memory = 750
         network {
           port "http" {}
           port "tcp" {}
