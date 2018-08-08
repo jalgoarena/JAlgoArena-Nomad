@@ -32,7 +32,7 @@ job "jalgoarena-ui" {
 
       service {
         name = "jalgoarena-ui"
-        tags = ["ui", "traefik.enable=false"]
+        tags = ["traefik.frontend.entryPoints=ui", "traefik.frontend.rule=PathPrefix:/"]
         port = "http"
         check {
           type      = "tcp"

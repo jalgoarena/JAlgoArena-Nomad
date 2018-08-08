@@ -37,6 +37,9 @@ job "jalgoarena-traefik" {
           port "dashboard" {
             static = 15001
           }
+          port "ui" {
+            static = 3000
+          }
         }
       }
 
@@ -58,6 +61,13 @@ job "jalgoarena-traefik" {
           interval  = "10s"
           timeout   = "1s"
         }
+        check {
+          name      = "service: traefik ui check"
+          type      = "tcp"
+          port      = "ui"
+          interval  = "10s"
+          timeout   = "1s"
+        }
       }
 
       template {
@@ -73,6 +83,9 @@ defaultEntryPoints = ["http"]
 
   [entryPoints.dashboard]
   address = ":15001"
+
+  [entryPoints.ui]
+  address = ":3000"
 
 [api]
 entryPoint = "dashboard"
