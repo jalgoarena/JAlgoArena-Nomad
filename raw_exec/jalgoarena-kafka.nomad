@@ -10,7 +10,9 @@ job "jalgoarena-kafka" {
   group "jalgoarena-zk" {
 
     ephemeral_disk {
-      size = 1000
+      migrate = true
+      size = 1500
+      sticky = true
     }
 
     task "zookeeper" {
@@ -70,7 +72,9 @@ EOH
     count = 3
 
     ephemeral_disk {
-      size = 1000
+      migrate = true
+      size = 1500
+      sticky = true
     }
 
     task "kafka" {

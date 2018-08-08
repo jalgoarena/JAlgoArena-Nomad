@@ -9,7 +9,9 @@ job "jalgoarena-elasticsearch" {
   group "elasticsearch-docker" {
 
     ephemeral_disk {
+      migrate = true
       size = 2000
+      sticky = true
     }
 
     task "elasticsearch" {

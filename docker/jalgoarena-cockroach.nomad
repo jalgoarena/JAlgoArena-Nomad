@@ -10,7 +10,9 @@ job "jalgoarena-cockroach" {
     count = 3
 
     ephemeral_disk {
-      size = 1000
+      migrate = true
+      size = 1500
+      sticky = true
     }
 
     task "cockroach-node" {
@@ -26,7 +28,7 @@ job "jalgoarena-cockroach" {
         args    = [
           "start",
           "--insecure",
-          "--store=node1",
+          "--store", "node-${NOMAD_ALLOC_INDEX}",
           "--host", "${NOMAD_IP_tcp}",
           "--port", "${NOMAD_PORT_tcp}",
           "--http-port", "${NOMAD_PORT_http}",
@@ -65,7 +67,7 @@ job "jalgoarena-cockroach" {
 
       template {
         data = <<EOH
-COCKROACH_MASTER_HOST = "{{ range $index, $cockroach := service "cockroach" }}{{ if eq $index 0 }}{{ $cockroach.Address }}:{{ $cockroach.Port }}{{ end }}{{ end }}"
+COCKROACH_JOIN = {{ range $index, $cockroach := service "cockroach" }}{{ if eq $index 0 }}{{ $cockroach.Address }}:{{ $cockroach.Port }}{{ else}},{{ $cockroach.Address }}:{{ $cockroach.Port }}{{ end }}{{ end }}
 EOH
 
         destination = "local/config.env"

@@ -10,7 +10,9 @@ job "jalgoarena-kafka" {
   group "zk-docker" {
 
     ephemeral_disk {
-      size = 1000
+      migrate = true
+      size = 1500
+      sticky = true
     }
 
     task "zookeeper" {
@@ -52,7 +54,9 @@ job "jalgoarena-kafka" {
     count = 3
 
     ephemeral_disk {
-      size = 1000
+      migrate = true
+      size = 1500
+      sticky = true
     }
 
     task "kafka" {
