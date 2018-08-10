@@ -13,13 +13,13 @@ job "jalgoarena-ranking" {
       driver = "docker"
 
       config {
-        image = "jalgoarena/ranking:2.4.98"
+        image = "jalgoarena/ranking:2.4.106"
         network_mode = "host"
       }
 
       resources {
         cpu    = 1000
-        memory = 512
+        memory = 1200
         network {
           port "http" {}
         }
@@ -28,7 +28,7 @@ job "jalgoarena-ranking" {
       env {
         PORT = "${NOMAD_PORT_http}"
         KAFKA_CONSUMER_GROUP_ID = "ranking-${NOMAD_ALLOC_INDEX}"
-        JAVA_OPTS = "-Xmx400m -Xms50m"
+        JAVA_OPTS = "-Xmx1g -Xms200m"
       }
 
       service {
