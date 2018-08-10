@@ -13,14 +13,14 @@ job "jalgoarena-events" {
       driver = "raw_exec"
 
       artifact {
-        source  = "https://github.com/jalgoarena/JAlgoArena-Events/releases/download/v2.4.1/JAlgoArena-Events-2.4.34.zip"
+        source  = "https://github.com/jalgoarena/JAlgoArena-Events/releases/download/20180810065705-327a86e/JAlgoArena-Events-2.4.39.zip"
       }
 
       config {
         command = "java"
         args = [
           "-Xmx400m", "-Xms50m",
-          "-jar", "local/jalgoarena-events-2.4.34.jar"
+          "-jar", "local/jalgoarena-events-2.4.39.jar"
         ]
       }
 

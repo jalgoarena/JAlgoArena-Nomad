@@ -13,7 +13,7 @@ job "jalgoarena-events" {
       driver = "docker"
 
       config {
-        image = "jalgoarena/events:2.4.32"
+        image = "jalgoarena/events:2.4.39"
         network_mode = "host"
       }
 
