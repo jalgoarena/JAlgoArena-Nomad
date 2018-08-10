@@ -13,20 +13,20 @@ job "jalgoarena-submissions" {
       driver = "raw_exec"
 
       artifact {
-        source  = "https://github.com/jalgoarena/JAlgoArena-Submissions/releases/download/20180805104554-691e797/JAlgoArena-Submissions-2.4.221.zip"
+        source  = "https://github.com/jalgoarena/JAlgoArena-Submissions/releases/download/20180810082849-7cb58da/JAlgoArena-Submissions-2.4.225.zip"
       }
 
       config {
         command = "java"
         args = [
-          "-Xmx400m", "-Xms50m",
-          "-jar", "local/jalgoarena-submissions-2.4.221.jar"
+          "-Xmx1g", "-Xms200m",
+          "-jar", "local/jalgoarena-submissions-2.4.225.jar"
         ]
       }
 
       resources {
         cpu    = 500
-        memory = 512
+        memory = 1200
         network {
           port "http" {}
         }

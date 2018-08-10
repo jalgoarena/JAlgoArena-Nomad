@@ -13,13 +13,13 @@ job "jalgoarena-submissions" {
       driver = "docker"
 
       config {
-        image = "jalgoarena/submissions:2.4.221"
+        image = "jalgoarena/submissions:2.4.225"
         network_mode = "host"
       }
 
       resources {
         cpu    = 500
-        memory = 512
+        memory = 1200
         network {
           port "http" {}
         }
@@ -27,7 +27,7 @@ job "jalgoarena-submissions" {
 
       env {
         PORT = "${NOMAD_PORT_http}"
-        JAVA_OPTS = "-Xmx400m -Xms50m"
+        JAVA_OPTS = "-Xmx1g -Xms200m"
       }
 
       service {
