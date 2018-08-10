@@ -13,7 +13,7 @@ job "jalgoarena-auth" {
       driver = "docker"
 
       config {
-        image = "jalgoarena/auth:2.4.161"
+        image = "jalgoarena/auth:2.4.165"
         network_mode = "host"
       }
 
