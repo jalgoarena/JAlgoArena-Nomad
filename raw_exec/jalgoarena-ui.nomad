@@ -17,7 +17,7 @@ job "jalgoarena-ui" {
       driver = "raw_exec"
 
       artifact {
-        source  = "https://github.com/jalgoarena/JAlgoArena-UI/releases/download/20180809204619-01dfb6c/JAlgoArena-UI-2.4.572.zip"
+        source  = "https://github.com/jalgoarena/JAlgoArena-UI/releases/download/20180810060033-b75bcb6/JAlgoArena-UI-2.4.576.zip"
       }
 
       config {
