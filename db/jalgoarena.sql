@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS jalgoarena.submissions (
 	status_code STRING(255) NOT NULL,
 	submission_id STRING(255) NOT NULL,
 	submission_time TIMESTAMP NOT NULL,
-	token STRING(255) NULL,
+	token STRING(512) NULL,
 	user_id STRING(255) NOT NULL,
 	CONSTRAINT "primary" PRIMARY KEY (id ASC),
 	UNIQUE INDEX uk_51d698q9pdvfldc75kskyxmlf (submission_id ASC),
