@@ -36,3 +36,8 @@ CREATE TABLE IF NOT EXISTS jalgoarena.submissions (
 	UNIQUE INDEX uk_51d698q9pdvfldc75kskyxmlf (submission_id ASC),
 	FAMILY "primary" (id, consumed_memory, elapsed_time, error_message, failed_test_cases, passed_test_cases, problem_id, source_code, status_code, submission_id, submission_time, token, user_id)
 );
+
+CREATE INDEX ON jalgoarena.submissions (problem_id);
+CREATE INDEX ON jalgoarena.submissions (status_code);
+CREATE INDEX ON jalgoarena.submissions (submission_time);
+CREATE INDEX ON jalgoarena.submissions (user_id);
